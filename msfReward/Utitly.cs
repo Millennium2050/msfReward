@@ -17,7 +17,7 @@ namespace msfReward
         public Utitly()
         {
             _options = new EdgeOptions();
-            _options.AddArgument("user-data-dir=C:\\Users\\hasan\\AppData\\Local\\Microsoft\\Edge\\User Data copy");
+            _options.AddArgument("user-data-dir=D:\\Edge\\User Data");
             _options.AddAdditionalEdgeOption("useAutomationExtension", false);
             _options.AddExcludedArgument("enable-automation");
             _driver = new EdgeDriver(_options);
@@ -43,7 +43,7 @@ namespace msfReward
               
                     searchInput.Submit();
 
-                    Thread.Sleep(10000);
+                    Thread.Sleep(100000);
 
                     _driver.Close();
                 }
