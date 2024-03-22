@@ -12,13 +12,15 @@ namespace msfReward
     public class Utitly
     {
         private readonly EdgeOptions _options;
-        private readonly IWebDriver _driver;
+        private WebDriver _driver;
 
         public Utitly()
         {
             _options = new EdgeOptions();
+            _options.AddArgument("user-data-dir=C:\\Users\\hasan\\AppData\\Local\\Microsoft\\Edge\\User Data copy");
+            _options.AddAdditionalEdgeOption("useAutomationExtension", false);
+            _options.AddExcludedArgument("enable-automation");
             _driver = new EdgeDriver(_options);
-            _options.AddArgument("user-data-dir=C:\\Users\\hasan\\AppData\\Local\\Microsoft\\Edge\\User Data");
         }
 
         public void StartBrowser() {
@@ -31,20 +33,18 @@ namespace msfReward
                     _driver.Navigate().GoToUrl("https://www.bing.com");
 
                     //if (!IsLoggedIn(driver))
-
+                    Thread.Sleep(10000);
                     string randomSearchTerm = GenerateRandomText();
 
                     // Find the search input field and type the random text
                     IWebElement searchInput = _driver.FindElement(By.Name("q"));
-                    searchInput.SendKeys(randomSearchTerm);
 
-                    // Submit the search
+                    searchInput.SendKeys(randomSearchTerm);
+              
                     searchInput.Submit();
 
-                    // Wait for 5 seconds to simulate viewing search results
                     Thread.Sleep(10000);
 
-                    // Close the browser
                     _driver.Close();
                 }
                 catch (Exception ex)
@@ -52,16 +52,13 @@ namespace msfReward
                     Console.WriteLine("An error occurred: " + ex.Message);
                 }
 
-
                 Thread.Sleep(10000);
                 try
                 {
-
-                    _driver = null;
+                    _driver = new EdgeDriver(_options); 
                 }
                 catch (Exception e)
                 {
-
                     throw;
                 }
 
@@ -101,6 +98,7 @@ namespace msfReward
             int randomIndex = rand.Next(selectedKeywords.Length);
 
 
+            //return "world coin";
             return selectedKeywords[randomIndex];
         }
 
