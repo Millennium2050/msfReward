@@ -1,78 +1,51 @@
 ﻿// Create EdgeDriver instance
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium;
-using System.Threading;
+using OpenQA.Selenium.Support.UI;
 
-EdgeOptions options = new EdgeOptions();
 
-IWebDriver driver = new EdgeDriver(options);
-
+//EdgeOptions options = new EdgeOptions();
+//IWebDriver driver = new EdgeDriver(options);
+//options.AddArgument("user-data-dir=C:\\Users\\hasan\\AppData\\Local\\Microsoft\\Edge\\User Data");
 // Keep the browser open and perform actions every 10 seconds
-while (true)
+
+
+static bool IsLoggedIn(IWebDriver driver)
 {
     try
     {
-        // Open Bing
-        driver.Navigate().GoToUrl("https://www.bing.com");
-
-        // Generate a random search term
-        string randomSearchTerm = GenerateRandomText();
-
-        // Find the search input field and type the random text
-        IWebElement searchInput = driver.FindElement(By.Name("q"));
-        searchInput.SendKeys(randomSearchTerm);
-
-        // Submit the search
-        searchInput.Submit();
-
-        // Wait for 5 seconds to simulate viewing search results
-        Thread.Sleep(30000);
-
-        // Close the browser
-        driver.Close();
+        // Check if logout button is present, indicating that the user is logged in
+        driver.FindElement(By.Id("id_l"));
+        return true;
     }
-    catch (Exception ex)
+    catch (NoSuchElementException)
     {
-        Console.WriteLine("An error occurred: " + ex.Message);
+        return false;
     }
-
-    // Wait for 10 seconds before reopening the browser
-    Thread.Sleep(10000);
-    driver = new EdgeDriver(options);
 }
 
 
-static string GenerateRandomText()
+static void Login(IWebDriver driver, string email, string password)
 {
+    // Navigate to Microsoft login page
+    driver.Navigate().GoToUrl("https://login.live.com");
 
-    string[] cryptoKeywords = {
-            "cryptocurrency news",
-            "blockchain technology",
-            "Bitcoin latest updates",
-            "Ethereum development guide",
-            "crypto trading strategies",
-            "DeFi projects overview",
-            "NFT marketplace analysis",
-            "smart contracts tutorial",
-            "crypto security best practices"
-        };
+    // Find email input field and enter email
+    IWebElement emailInput = driver.FindElement(By.Id("i0116"));
+    emailInput.SendKeys(email);
 
-    string[] dotnetKeywords = {
-            ".NET Core performance optimization",
-            "C# latest features",
-            "ASP.NET MVC best practices",
-            "Azure DevOps CI/CD pipeline setup",
-            "Entity Framework Core migration guide",
-            "Visual Studio Code extensions for .NET developers",
-            "Blazor web development tutorial",
-            "Azure Functions deployment steps",
-            "Dockerizing .NET applications"
-        };
+    // Click next button
+    driver.FindElement(By.Id("idSIButton9")).Click();
 
-    Random rand = new Random();
-    string[] selectedKeywords = rand.NextDouble() < 0.5 ? cryptoKeywords : dotnetKeywords;
-    int randomIndex = rand.Next(selectedKeywords.Length);
+    // Find password input field and enter password
+    WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+    wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("i0118")));
+    IWebElement passwordInput = driver.FindElement(By.Id("i0118"));
+    passwordInput.SendKeys(password);
 
+    // Click sign-in button
+    driver.FindElement(By.Id("idSIButton9")).Click();
 
-    return selectedKeywords[randomIndex];
+    // Wait for login to complete
+    wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("https://www.bing.com"));
 }
