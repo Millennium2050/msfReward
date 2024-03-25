@@ -19,31 +19,17 @@ namespace msfReward
         private IWebDriver _driver;
         
 
-        //// Optional: Set the profile directory if needed
-        //// options.Profile = new FirefoxProfileManager().GetProfile("profile_name");
 
-        //// Create FirefoxDriver instance with options
-        //IWebDriver driver = new FirefoxDriver(options);
         public Utitly()
         {
             _options = new EdgeOptions();
 
-            //_options = new FirefoxOptions();
-
-            //_options.AddArgument("user-data-dir=D:\\Edge\\User Data");
+            
             _options.AddAdditionalEdgeOption("useAutomationExtension", false);
             _options.AddExcludedArgument("enable-automation");
 
             _driver = new EdgeDriver(_options);
-            //_options.Profile = new FirefoxProfileManager().GetProfile("C:\\Users\\hasan\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\5urz0jxy.default-release");
-            //var anaheimService = ChromeDriverService.CreateDefaultService(@"c:\drivers", "msedgedriver.exe");
-            //var anaheimOptions = new ChromeOptions
-            //{
-            //    BinaryLocation = @"C:\Users\hasan\AppData\Local\Microsoft\Edge SxS\Application\msedge.exe"
-            //};
-            ////anaheimOptions.AddArgument("--headless");
-            //_driver = new ChromeDriver(anaheimService, anaheimOptions);
-            //_driver = new FirefoxDriver(_options);
+        
         }
 
         public void StartBrowser() {

@@ -1,7 +1,4 @@
 ﻿// Create EdgeDriver instance
-using OpenQA.Selenium.Edge;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
 using msfReward;
 
 
