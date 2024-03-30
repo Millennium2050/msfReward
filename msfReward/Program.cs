@@ -7,5 +7,5 @@ using msfReward;
 //options.AddArgument("user-data-dir=C:\\Users\\hasan\\AppData\\Local\\Microsoft\\Edge\\User Data");
 // Keep the browser open and perform actions every 10 seconds
 
-var tool = new Utitly();
+var tool = new Driver();
 tool.StartBrowser();

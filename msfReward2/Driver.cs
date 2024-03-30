@@ -3,14 +3,14 @@ using OpenQA.Selenium.Edge;
 
 namespace msfReward2
 {
-    public class Utitly
+    public class Driver
     {
         private readonly EdgeOptions _options;
         //private readonly FirefoxOptions _options;
         private IWebDriver driver;
         
 
-        public Utitly()
+        public Driver()
         {
             _options = new EdgeOptions();
             _options.AddAdditionalEdgeOption("useAutomationExtension", false);

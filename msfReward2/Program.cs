@@ -1,4 +1,4 @@
 ﻿using msfReward2;
 
-var tool = new Utitly();
+var tool = new Driver();
 tool.OpenArticles();

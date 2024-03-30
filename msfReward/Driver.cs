@@ -12,7 +12,7 @@ using OpenQA.Selenium.Interactions;
 
 namespace msfReward
 {
-    public class Utitly
+    public class Driver
     {
         private readonly EdgeOptions _options;
         //private readonly FirefoxOptions _options;
@@ -20,7 +20,7 @@ namespace msfReward
         
 
 
-        public Utitly()
+        public Driver()
         {
             _options = new EdgeOptions();
 
